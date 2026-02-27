@@ -28,5 +28,27 @@ namespace BRAIN_OBJECTS_MADE_REAL_ACTUAL_PatrickM
             this.isActive = false;
         }
 
+        //Accessor Methods
+
+        public int GetUsesLeftover()
+        {
+            return usesLeftover;
+        }
+
+        public float GetSpeedBoost()
+        { 
+            return speedBoost;
+        }
+
+        public float GetBoostTime()
+        { 
+            return boostTime;
+        }
+
+        public bool GetIsActive()
+        {
+            return isActive;
+        }
+
     }
 }
