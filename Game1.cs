@@ -9,6 +9,15 @@ namespace BRAIN_OBJECTS_MADE_REAL_ACTUAL_PatrickM
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
+        private Texture2D playerTexture;
+        private Vector2 playerPosition;
+
+        private float playerSpeed = 150f;
+
+        private DoubleDouble coffee;
+        private KeyboardState previousKeyboard;
+
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -18,7 +27,10 @@ namespace BRAIN_OBJECTS_MADE_REAL_ACTUAL_PatrickM
 
         protected override void Initialize()
         {
-            
+            playerPosition = new Vector2(300, 200);
+
+            //coffee has 2 uses, double the speed and lasts for 4 seconds
+            coffee = new DoubleDouble(2, 2f, 4f);
 
             base.Initialize();
         }
@@ -26,8 +38,15 @@ namespace BRAIN_OBJECTS_MADE_REAL_ACTUAL_PatrickM
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+            playerTexture = new Texture2D(GraphicsDevice, 50, 50);
+            Color[] data = new Color[50 * 50];
 
-           
+            for (int i = 0; i < data.Length; i++)
+                data[i] = Color.Red;
+
+            playerTexture.SetData(data);
+
         }
 
         protected override void Update(GameTime gameTime)
