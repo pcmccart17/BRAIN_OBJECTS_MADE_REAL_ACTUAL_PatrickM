@@ -54,7 +54,41 @@ namespace BRAIN_OBJECTS_MADE_REAL_ACTUAL_PatrickM
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            
+            KeyboardState keyboard = Keyboard.GetState();
+            float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            //Activates the coffe boost when Spacebar is pressed
+            if (keyboard.IsKeyDown(Keys.Space) && previousKeyboard.IsKeyUp(Keys.Space))
+            {
+                coffee.useCoffee();
+            }
+
+            coffee.decreaseBoostTime(gameTime);
+
+            float currentSpeed = playerSpeed;
+
+            if (coffee.GetIsActive())
+            {
+                currentSpeed *= coffee.GetSpeedBoost();
+            }
+
+            //Movement of WASD 
+
+            if (keyboard.IsKeyDown(Keys.W))
+                playerPosition.Y -= currentSpeed * deltaTime;
+
+            if (keyboard.IsKeyDown(Keys.S))
+                playerPosition.Y += currentSpeed * deltaTime;
+
+            if (keyboard.IsKeyDown(Keys.A))
+                playerPosition.X -= currentSpeed * deltaTime;
+
+            if (keyboard.IsKeyDown(Keys.D))
+                playerPosition.X += currentSpeed * deltaTime;
+
+            previousKeyboard = keyboard;
+
+
 
             base.Update(gameTime);
         }
@@ -63,7 +97,10 @@ namespace BRAIN_OBJECTS_MADE_REAL_ACTUAL_PatrickM
         {
             GraphicsDevice.Clear(Color.BlueViolet);
 
-            
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(playerTexture, playerPosition, Color.White);
+            _spriteBatch.End();
+
 
             base.Draw(gameTime);
         }
