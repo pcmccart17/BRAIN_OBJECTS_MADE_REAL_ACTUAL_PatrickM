@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,41 @@ namespace BRAIN_OBJECTS_MADE_REAL_ACTUAL_PatrickM
         public bool GetIsActive()
         {
             return isActive;
+        }
+
+        //Mutator Methods
+
+        public void useCoffee()
+        {
+            if (usesLeftover > 0 && !isActive)
+            {
+                usesLeftover--;
+                setActive(true);
+                resetBoostTime();
+            }
+        }
+
+        public void setActive(bool state)
+        {             
+            isActive = state;
+        }
+
+        public void decreaseBoostTime(GameTime gameTime)
+        {
+            if (isActive)
+            {
+                boostTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (boostTime <= 0)
+                {
+                    setActive(false);
+                }
+            }
+        }
+
+        public void resetBoostTime()
+        {
+                       boostTime = originalBoostTime;
         }
 
     }
